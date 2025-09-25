@@ -1,0 +1,25 @@
+version: 0.2
+env:
+  variables:
+    DOCKER_BUILDKIT: 1
+phases:
+  install:
+    runtime-versions:
+      java: corretto21
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - apt-get update && apt-get install -y zip && apt-get install build-essential libz-dev zlib1g-dev -y
+      - wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-20.0.0/graalvm-ce-java21-linux-amd64-20.0.0.tar.gz
+      - tar xz -f graalvm-ce-java21-linux-amd64-20.0.0.tar.gz
+      - export PATH=/graalvm-ce-java11-20.0.0/bin:$PATH
+      - graalvm-ce-java21-20.0.0/bin/gu install native-image
+      - mvn install -Dnative -DskipTests
+  build:
+    commands:
+      - docker build . -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/c6-event-receiver:$VERSAO
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/c6-event-receiver:$VERSAO
