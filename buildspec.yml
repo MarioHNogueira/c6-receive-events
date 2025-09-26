@@ -13,8 +13,8 @@ phases:
       - apt-get update && apt-get install -y zip
       - wget https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.2/graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz
       - tar xz -f graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz
-      - export PATH=/graalvm-ce-java11-20.0.0/bin:$PATH
-      - graalvm-ce-java21-20.0.0/bin/gu install native-image
+      - export PATH=/graalvm-community-jdk-21.0.2/bin:$PATH
+      - graalvm-community-jdk-21.0.2/bin/gu install native-image
       - mvn install -Dnative -DskipTests
   build:
     commands:
