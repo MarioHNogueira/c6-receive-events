@@ -11,9 +11,9 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - wget https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.2/graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz
-      - tar xz -f graalvm-jdk-21.0.2_linux-x64.tar.gz
-      - export PATH=/graalvm-jdk-21.0.2/bin:$PATH
-      - graalvm-jdk-21.0.2/bin/gu install native-image
+      - tar xz -f graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz
+      - export PATH=/graalvm-community-jdk-21.0.2/bin:$PATH
+      - graalvm-community-jdk/bin/gu install native-image
       - mvn install -Dnative -DskipTests
   build:
     commands:
