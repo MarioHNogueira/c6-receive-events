@@ -15,13 +15,13 @@ import software.amazon.awssdk.services.sns.model.PublishRequest;
 @Named("boletoEventHandler")
 public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    @ConfigProperty(name = "topic.arn")
+    @ConfigProperty(name = "topic_arn")
     String topicArn;
-    @ConfigProperty(name = "aws.user-key")
+    @ConfigProperty(name = "aws_user_key")
     String awsUserkey;
-    @ConfigProperty(name = "aws.user-secret")
+    @ConfigProperty(name = "aws_user_secret")
     String awsUserSecret;
-    @ConfigProperty(name="aws.region")
+    @ConfigProperty(name="aws_region")
     String awsRegion;
 
     @Override
