@@ -7,6 +7,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.logging.Log;
 import jakarta.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -15,6 +16,7 @@ import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.utils.StringUtils;
 
+@Slf4j
 @Named("eventHandler")
 public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
@@ -35,22 +37,30 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
         try {
             if ("ligado".equalsIgnoreCase(logAuditoria)) {
+                Log.info("Enconded: "+ input.getIsBase64Encoded());
                 Log.info(new ObjectMapper().writeValueAsString(input));
             }
             if (StringUtils.isEmpty(input.getBody())) {
                 throw new IllegalArgumentException("Body is empty");
             }
-            if (!input.getBody().contains("BANK_SLIP") &&
-                !input.getBody().contains("endToEndId")){
+            String mensagem = input.getBody();
+            if (input.getIsBase64Encoded()){
+                mensagem = new String(java.util.Base64.getDecoder().decode(mensagem));
+                if ("ligado".equalsIgnoreCase(logAuditoria)) {
+                    Log.info("Body Base64: " + mensagem);
+                }
+            }
+            if (!mensagem.contains("BANK_SLIP") &&
+                !mensagem.contains("endToEndId")){
                 return new APIGatewayProxyResponseEvent()
                         .withStatusCode(500)
                         .withBody("Formato de evento inválido!!");
             }
             if (input.getBody().contains("BANK_SLIP")) {
-                publish(input.getBody(), boletoTopicArn);
+                publish(mensagem, boletoTopicArn);
             }
             if (input.getBody().contains("endToEndId")){
-                publish(input.getBody(), pixTopicArn);
+                publish(mensagem, pixTopicArn);
             }
             return new APIGatewayProxyResponseEvent()
                     .withStatusCode(200)
