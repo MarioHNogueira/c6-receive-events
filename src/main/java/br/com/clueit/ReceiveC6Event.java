@@ -5,6 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.quarkus.logging.Log;
 import jakarta.inject.Named;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -34,7 +35,7 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
         try {
             if ("ligado".equalsIgnoreCase(logAuditoria)) {
-                context.getLogger().log(new ObjectMapper().writeValueAsString(input));
+                Log.info(new ObjectMapper().writeValueAsString(input));
             }
             if (StringUtils.isEmpty(input.getBody())) {
                 throw new IllegalArgumentException("Body is empty");
