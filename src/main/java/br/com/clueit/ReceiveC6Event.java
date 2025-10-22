@@ -14,7 +14,7 @@ import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.utils.StringUtils;
 
-@Named("boletoEventHandler")
+@Named("eventHandler")
 public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @ConfigProperty(name="boleto_topic_arn")
