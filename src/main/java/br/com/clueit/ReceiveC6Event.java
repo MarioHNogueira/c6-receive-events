@@ -37,7 +37,7 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
         try {
             if ("ligado".equalsIgnoreCase(logAuditoria)) {
-                Log.info("Enconded: "+ input.getIsBase64Encoded());
+                Log.info("Encoded: "+ input.getIsBase64Encoded());
                 Log.info(new ObjectMapper().writeValueAsString(input));
             }
             if (StringUtils.isEmpty(input.getBody())) {
@@ -81,6 +81,9 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
                         .create(awsUserkey, awsUserSecret)))
                 .build()) {
             snsClient.publish(request);
+        }catch (Exception e){
+            Log.error(e);
+            throw new RuntimeException(e);
         }
     }
 }
