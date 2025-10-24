@@ -1,0 +1,93 @@
+{
+  "version": null,
+  "resource": "/c6-receive-events",
+  "path": "/c6-receive-events",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Cache-Control": "no-cache",
+    "Content-Type": "application/json",
+    "Host": "5y0lpfvkrb.execute-api.sa-east-1.amazonaws.com",
+    "Postman-Token": "171a01c0-e8f6-4f9f-ab3f-96e10cc09366",
+    "User-Agent": "PostmanRuntime/7.49.0",
+    "X-Amzn-Trace-Id": "Root=1-68fb83fc-4bd8146115a8bea01f8051de",
+    "X-Forwarded-For": "201.56.127.7",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "*/*"
+    ],
+    "Accept-Encoding": [
+      "gzip, deflate, br"
+    ],
+    "Cache-Control": [
+      "no-cache"
+    ],
+    "Content-Type": [
+      "application/json"
+    ],
+    "Host": [
+      "5y0lpfvkrb.execute-api.sa-east-1.amazonaws.com"
+    ],
+    "Postman-Token": [
+      "171a01c0-e8f6-4f9f-ab3f-96e10cc09366"
+    ],
+    "User-Agent": [
+      "PostmanRuntime/7.49.0"
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-68fb83fc-4bd8146115a8bea01f8051de"
+    ],
+    "X-Forwarded-For": [
+      "201.56.127.7"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "accountId": "595053617435",
+    "stage": "default",
+    "resourceId": "iae90p",
+    "requestId": "9e2307d5-4729-46bd-9eba-019cb2ce1f82",
+    "operationName": null,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "apiKey": null,
+      "principalOrgId": null,
+      "sourceIp": "201.56.127.7",
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "PostmanRuntime/7.49.0",
+      "user": null,
+      "accessKey": null
+    },
+    "resourcePath": "/c6-receive-events",
+    "httpMethod": "POST",
+    "apiId": "5y0lpfvkrb",
+    "path": "/default/c6-receive-events",
+    "authorizer": null,
+    "extendedRequestId": "S9GPkGGJGjQEV6w=",
+    "requestTime": "24/Oct/2025:13:49:48 +0000",
+    "requestTimeEpoch": 1761313788879,
+    "domainName": "5y0lpfvkrb.execute-api.sa-east-1.amazonaws.com",
+    "domainPrefix": "5y0lpfvkrb",
+    "protocol": "HTTP/1.1"
+  },
+  "body": "CnsiY2xpZW50X2lkIjpudWxsLCJkYXRlX3RpbWUiOiIyMDI1LTEwLTIzVDE0OjU3OjMyLjkxNjUxMjI2NloiLCJleHRlcm5hbF9pZCI6IjAxSzg0RTRTRDRIUEpSR0VSUEREQkZSRzhEIiwiaW5mb3JtYXRpb24iOm51bGwsInBhcnRuZXJfaWQiOm51bGwsInNlcnZpY2UiOiJCQU5LX1NMSVAiLCJzdGF0dXMiOiJQQUlEIn0=",
+  "isBase64Encoded": true
+}

@@ -36,12 +36,12 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
     @Override
     public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
         try {
+            if (StringUtils.isEmpty(input.getBody())) {
+                throw new IllegalArgumentException("Body is empty");
+            }
             if ("ligado".equalsIgnoreCase(logAuditoria)) {
                 Log.info("Encoded: "+ input.getIsBase64Encoded());
                 Log.info(new ObjectMapper().writeValueAsString(input));
-            }
-            if (StringUtils.isEmpty(input.getBody())) {
-                throw new IllegalArgumentException("Body is empty");
             }
             String mensagem = input.getBody();
             if (input.getIsBase64Encoded()){
@@ -56,10 +56,10 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
                         .withStatusCode(500)
                         .withBody("Formato de evento inválido!!");
             }
-            if (input.getBody().contains("BANK_SLIP")) {
+            if (mensagem.contains("BANK_SLIP")) {
                 publish(mensagem, boletoTopicArn);
             }
-            if (input.getBody().contains("endToEndId")){
+            if (mensagem.contains("endToEndId")){
                 publish(mensagem, pixTopicArn);
             }
             return new APIGatewayProxyResponseEvent()

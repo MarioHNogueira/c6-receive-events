@@ -10,6 +10,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Date;
 
 import static io.restassured.RestAssured.given;
@@ -18,17 +21,19 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 class ReceiveC6EventTest {
     @Test
-    void testReceiveBoletoEvent() throws JsonProcessingException {
-        APIGatewayV2HTTPEvent request = APIGatewayV2HTTPEvent.builder().build();
-        BoletoEvent be = new BoletoEvent();
-        be.setClientId("12379787");
-        be.setService("BANK_SLIP");
-        be.setExternalId("01K84E4SD4HPJRGERPDDBFRG8D");
-        be.setDateTime("2025-10-23T14:57:32.916512266Z");
-        be.setStatus("PAID");
-        be.setInformation("Information");
-        be.setPartnerId("123456789");
-        request.setBody(new ObjectMapper().writeValueAsString(be));
+    void testReceiveBoletoEvent() throws IOException {
+//        APIGatewayV2HTTPEvent request = APIGatewayV2HTTPEvent.builder().build();
+//        BoletoEvent be = new BoletoEvent();
+//        be.setClientId("12379787");
+//        be.setService("BANK_SLIP");
+//        be.setExternalId("01K84E4SD4HPJRGERPDDBFRG8D");
+//        be.setDateTime("2025-10-23T14:57:32.916512266Z");
+//        be.setStatus("PAID");
+//        be.setInformation("Information");
+//        be.setPartnerId("123456789");
+//        request.setBody(new ObjectMapper().writeValueAsString(be));
+        FileInputStream fis = new FileInputStream("/Users/marioh.nogueira/Projetos/ClueIT/c6-receive-events/ApiGatewayEvent.json");
+        APIGatewayV2HTTPEvent request = new ObjectMapper().readValue(fis,APIGatewayV2HTTPEvent.class);
         final  APIGatewayProxyResponseEvent response = given()
             .contentType("application/json")
             .body(request)
