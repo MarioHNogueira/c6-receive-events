@@ -72,6 +72,9 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
         }
     }
     private void publish(String message, String topicArn){
+        if ("ligado".equalsIgnoreCase(logAuditoria)){
+            Log.info("Mensagem: realizado enqueue para a fila: "+ topicArn);
+        }
         PublishRequest request = PublishRequest.builder().message(message)
                 .topicArn(topicArn)
                 .build();
@@ -81,6 +84,10 @@ public class ReceiveC6Event implements RequestHandler<APIGatewayProxyRequestEven
                         .create(awsUserkey, awsUserSecret)))
                 .build()) {
             snsClient.publish(request);
+            if ("ligado".equalsIgnoreCase(logAuditoria)){
+                Log.info("Enviada com sucesso para a fila: "+ topicArn);
+                Log.info(message);
+            }
         }catch (Exception e){
             Log.error(e);
             throw new RuntimeException(e);

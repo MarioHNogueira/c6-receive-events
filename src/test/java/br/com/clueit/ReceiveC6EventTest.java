@@ -23,9 +23,9 @@ class ReceiveC6EventTest {
         BoletoEvent be = new BoletoEvent();
         be.setClientId("12379787");
         be.setService("BANK_SLIP");
-        be.setExternalId("123456789");
-        be.setDateTime("2021-01-01T00:00:00");
-        be.setStatus("RECEIVED");
+        be.setExternalId("01K84E4SD4HPJRGERPDDBFRG8D");
+        be.setDateTime("2025-10-23T14:57:32.916512266Z");
+        be.setStatus("PAID");
         be.setInformation("Information");
         be.setPartnerId("123456789");
         request.setBody(new ObjectMapper().writeValueAsString(be));
